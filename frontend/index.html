@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Planner AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Markdown parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-plane"></i> Travel Planner AI</h1>
+            <p>Powered by Gemini 2.0 Flash</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="planner">Create Travel Plan</button>
+            <button class="tab-btn" data-tab="recommendations">Get Destination Ideas</button>
+            <button class="tab-btn" data-tab="airport-codes">Airport Codes</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- Travel Planner Tab -->
+            <div id="planner" class="tab-pane active">
+                <form id="travel-form">
+                    <div class="form-group">
+                        <label for="source">Where are you traveling from?</label>
+                        <input type="text" id="source" name="source" placeholder="e.g., New York, USA" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="destination">Where do you want to go?</label>
+                        <input type="text" id="destination" name="destination" placeholder="e.g., Paris, France" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dates">When are you traveling?</label>
+                            <input type="text" id="dates" name="dates" placeholder="e.g., June 10-20, 2024" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="travelers">Number of travelers</label>
+                            <input type="number" id="travelers" name="travelers" min="1" value="1" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budget">What's your budget?</label>
+                        <input type="text" id="budget" name="budget" placeholder="e.g., $3000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What are your interests?</label>
+                        <div class="interests-container">
+                            <div class="interest-option">
+                                <input type="checkbox" id="food" name="interests" value="food">
+                                <label for="food">Food & Cuisine</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="history" name="interests" value="history">
+                                <label for="history">History & Culture</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="nature" name="interests" value="nature">
+                                <label for="nature">Nature & Outdoors</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="adventure" name="interests" value="adventure">
+                                <label for="adventure">Adventure</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="relaxation" name="interests" value="relaxation">
+                                <label for="relaxation">Relaxation</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="shopping" name="interests" value="shopping">
+                                <label for="shopping">Shopping</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="art" name="interests" value="art">
+                                <label for="art">Art & Museums</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="nightlife" name="interests" value="nightlife">
+                                <label for="nightlife">Nightlife</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="custom-interests">Other interests (comma separated)</label>
+                        <input type="text" id="custom-interests" name="custom-interests" placeholder="e.g., photography, wine tasting, local markets">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="include-flights" name="include-flights">
+                        <label for="include-flights">Include flight details in the travel plan</label>
+                        <div class="info-text">Flight data generated by Gemini AI with links to Google Flights</div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Generate Travel Plan</button>
+                </form>
+            </div>
+
+            <!-- Recommendations Tab -->
+            <div id="recommendations" class="tab-pane">
+                <form id="recommendations-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rec-dates">When do you want to travel?</label>
+                            <input type="text" id="rec-dates" name="dates" placeholder="e.g., August 5-15, 2024" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rec-travelers">Number of travelers</label>
+                            <input type="number" id="rec-travelers" name="travelers" min="1" value="1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rec-budget">What's your budget?</label>
+                        <input type="text" id="rec-budget" name="budget" placeholder="e.g., $2000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What are your interests?</label>
+                        <div class="interests-container">
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-beach" name="interests" value="beach">
+                                <label for="rec-beach">Beaches</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-mountains" name="interests" value="mountains">
+                                <label for="rec-mountains">Mountains</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-cities" name="interests" value="cities">
+                                <label for="rec-cities">Cities</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-food" name="interests" value="food">
+                                <label for="rec-food">Food & Cuisine</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-history" name="interests" value="history">
+                                <label for="rec-history">History & Culture</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-adventure" name="interests" value="adventure">
+                                <label for="rec-adventure">Adventure</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-relaxation" name="interests" value="relaxation">
+                                <label for="rec-relaxation">Relaxation</label>
+                            </div>
+                            <div class="interest-option">
+                                <input type="checkbox" id="rec-wildlife" name="interests" value="wildlife">
+                                <label for="rec-wildlife">Wildlife</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rec-custom-interests">Other interests (comma separated)</label>
+                        <input type="text" id="rec-custom-interests" name="custom-interests" placeholder="e.g., hiking, diving, festivals">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Get Destination Ideas</button>
+                </form>
+            </div>
+
+            <!-- Airport Codes Tab -->
+            <div id="airport-codes" class="tab-pane">
+                <form id="airport-code-form">
+                    <div class="form-group">
+                        <label for="location">Enter a city or location</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., London, Tokyo, New York" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Get Airport Code</button>
+                </form>
+
+                <div id="airport-result" class="airport-result hidden">
+                    <div class="airport-result-card">
+                        <div class="airport-result-icon">
+                            <i class="fas fa-plane-departure"></i>
+                        </div>
+                        <div class="airport-result-content">
+                            <h3 id="airport-location">Location</h3>
+                            <div class="airport-code-display">
+                                <span id="airport-code-value">XXX</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading-container hidden">
+            <div class="loading-spinner"></div>
+            <p>Generating your perfect travel plan...</p>
+        </div>
+
+        <div id="result" class="result-container hidden">
+            <div class="result-header">
+                <h2>Your Travel Plan</h2>
+                <button id="back-btn" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+            </div>
+            <div id="result-content" class="result-content"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Travel Planner AI &copy; 2024 | Powered by Gemini 2.0 Flash</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
